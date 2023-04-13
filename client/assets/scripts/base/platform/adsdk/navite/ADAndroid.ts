@@ -25,12 +25,12 @@ export class ADAndroid extends ADBase{
             viewWidth : 320,
             viewHeight : 50,
         })
-        jsb.reflection.callStaticMethod(classCommon, 'createBannerAd', sigs, stringify)
+        cc.native.reflection.callStaticMethod(classCommon, 'createBannerAd', sigs, stringify)
     }
     
     public clearBanner(){
         let sigs = "()V"
-        jsb.reflection.callStaticMethod(classCommon, 'clearBanner', sigs)
+        cc.native.reflection.callStaticMethod(classCommon, 'clearBanner', sigs)
     }
 
     public createVideo( videoType : ADVideoType, finishCallback:ListenerFunc){
@@ -114,7 +114,7 @@ export class ADAndroid extends ADBase{
         })
         
         let sigs = "(Ljava/lang/String;)V"
-        jsb.reflection.callStaticMethod(classCommon, 'createVideoAd', sigs, stringify)
+        cc.native.reflection.callStaticMethod(classCommon, 'createVideoAd', sigs, stringify)
     }
 
     public createInterstitial(finishCallback:ListenerFunc){
@@ -124,7 +124,7 @@ export class ADAndroid extends ADBase{
             isLand : true,
         })
         let sigs = "(Ljava/lang/String;)V"
-        jsb.reflection.callStaticMethod(classCommon, 'createInterstitialAd', sigs, stringify)
+        cc.native.reflection.callStaticMethod(classCommon, 'createInterstitialAd', sigs, stringify)
     }
 
 }

@@ -34,7 +34,7 @@ export class LoginIOS extends LoginBase{
     public checkAppExist(loginWay : LoginWay){
         let packageData : any = LoginWayPackageData[loginWay];
         let URLSchemes : string = packageData.URLSchemes;
-        let value = jsb.reflection.callStaticMethod('AppUtil', 'checkAppExist', URLSchemes); 
+        let value = cc.native.reflection.callStaticMethod('AppUtil', 'checkAppExist', URLSchemes); 
         log.d("===checkAppExist======:", value)
         return value == 1;
     }
@@ -111,7 +111,7 @@ export class LoginIOS extends LoginBase{
             scope:"snsapi_userinfo",
             state:"123",
         })
-        jsb.reflection.callStaticMethod('AppleUtil', 'sendAuth:', stringify); 
+        cc.native.reflection.callStaticMethod('AppleUtil', 'sendAuth:', stringify); 
     }
 
      //微信的SDK登录
@@ -130,7 +130,7 @@ export class LoginIOS extends LoginBase{
             scope:"snsapi_userinfo",
             state:"123",
         })
-        jsb.reflection.callStaticMethod('WeChatUtil', 'sendAuth:', stringify); 
+        cc.native.reflection.callStaticMethod('WeChatUtil', 'sendAuth:', stringify); 
     }
 
 }

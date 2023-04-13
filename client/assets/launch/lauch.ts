@@ -1,7 +1,7 @@
 /*
- * @Author: xzben
+ * @Author: zsl
  * @Date: 2022-05-25 11:33:56
- * @LastEditors: xzben
+ * @LastEditors: zsl
  * @LastEditTime: 2022-05-25 16:49:44
  * @Description: file content
  */
@@ -41,10 +41,12 @@ export class Lauch extends cc.Component {
     start () {
         let resload = new BaseLoader();
         this.updateProcess(0);
-        cc.setDisplayStats(this.m_gameEnv != ENV.RELEASE);
+        if(this.m_gameEnv != ENV.RELEASE){
+            cc.profiler.showStats();
+        }
         
         if(cc.sys.isMobile)
-        cc.screen.requestFullScreen()
+            cc.screen.requestFullScreen()
 
         BaseLoader.loadBundleArray(["scripts"], ()=>{
             resload.loadPrefab("scripts#world/GameWorld", ( err, prefab : cc.Prefab)=>{
@@ -53,7 +55,8 @@ export class Lauch extends cc.Component {
                 GameWorld.m_loadingBar = this.m_loadingBar;
                 GameWorld.m_lblProcess = this.m_lblProcess;
                 GameWorld.m_gameEnv = this.m_gameEnv;
-                cc.game.addPersistRootNode(node);
+                cc.director.getScene().addChild(node);
+                cc.director.addPersistRootNode(node);
             })
         }, ( percent : number)=>{
             this.updateProcess(Math.floor(percent*100));

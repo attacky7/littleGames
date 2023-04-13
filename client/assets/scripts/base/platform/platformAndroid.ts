@@ -48,7 +48,7 @@ export class PlatformAndroid extends PlatformBase{
     //获取渠道
     public getChannel(){
         let sigs = "()Ljava/lang/String;"
-        let channel = jsb.reflection.callStaticMethod('com/utils/AppUtil', 'getChannel', sigs); 
+        let channel = cc.native.reflection.callStaticMethod('com/utils/AppUtil', 'getChannel', sigs); 
         log.d("===getChannel======:", channel)
         return channel;
     }
@@ -56,7 +56,7 @@ export class PlatformAndroid extends PlatformBase{
     //获得版本名称
     public getAppVersionName(){
         let sigs = "()Ljava/lang/String;"
-        let version = jsb.reflection.callStaticMethod('com/utils/AppUtil', 'getAppVersionName', sigs); 
+        let version = cc.native.reflection.callStaticMethod('com/utils/AppUtil', 'getAppVersionName', sigs); 
         log.d("===getAppVersionName======:", version)
         return version;
     }
@@ -68,7 +68,7 @@ export class PlatformAndroid extends PlatformBase{
             type : 1,
             ms : ms,
         })
-        jsb.reflection.callStaticMethod('com/utils/AppUtil', 'Vibrator', sigs, stringify);
+        cc.native.reflection.callStaticMethod('com/utils/AppUtil', 'Vibrator', sigs, stringify);
     }
 
     //检测应用是否存在
@@ -90,7 +90,7 @@ export class PlatformAndroid extends PlatformBase{
     private wxShareText( text : string, sceneType : WXShareScene)
     {
         let sigs = "(Ljava/lang/String;I)Z"
-        jsb.reflection.callStaticMethod('com/weChat/WeChatUtil', 'shareText', sigs, text, sceneType); 
+        cc.native.reflection.callStaticMethod('com/weChat/WeChatUtil', 'shareText', sigs, text, sceneType); 
     }
 
     //微信分享图片
@@ -100,14 +100,14 @@ export class PlatformAndroid extends PlatformBase{
 	    let qulity = 100
         let sigs = "(Ljava/lang/String;IIII)Z"
 
-        jsb.reflection.callStaticMethod('com/weChat/WeChatUtil', 'shareImage', sigs, imageFile, smallWidth, smallHeight, qulity, sceneType); 
+        cc.native.reflection.callStaticMethod('com/weChat/WeChatUtil', 'shareImage', sigs, imageFile, smallWidth, smallHeight, qulity, sceneType); 
     }
 
     private wxShareWebpage( url : string, title : string, desc : string, sceneType : WXShareScene){
 	    let qulity = 100
 
         let sigs = "(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;I)Z"
-        jsb.reflection.callStaticMethod('com/weChat/WeChatUtil', 'shareWebpage', sigs, url, qulity, title, desc, sceneType); 
+        cc.native.reflection.callStaticMethod('com/weChat/WeChatUtil', 'shareWebpage', sigs, url, qulity, title, desc, sceneType); 
     }
 
     //微信分享小游戏
@@ -117,7 +117,7 @@ export class PlatformAndroid extends PlatformBase{
         
         let sceneType = WXShareScene.FRIEND_SESSION;
         let sigs = "(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;II)Z"
-        jsb.reflection.callStaticMethod('com/weChat/WeChatUtil', 'shareMiniProgram', sigs, url, progrmType, userName, path, title, desc, qulity, sceneType); 
+        cc.native.reflection.callStaticMethod('com/weChat/WeChatUtil', 'shareMiniProgram', sigs, url, progrmType, userName, path, title, desc, qulity, sceneType); 
     }
 
     //原生平台下载远程图片到本地
@@ -125,10 +125,10 @@ export class PlatformAndroid extends PlatformBase{
         if (!utils.isUrl(remoteImgUrl)) return;
 
         let v = remoteImgUrl.split('/');
-        let dirpath = jsb.fileUtils.getWritablePath() + '/remoteFiles/';
+        let dirpath = cc.native.fileUtils.getWritablePath() + '/remoteFiles/';
         let filepath = dirpath + v[v.length-1];
-        if (!jsb.fileUtils.isFileExist(dirpath)) {// 目录不存在，创建
-            jsb.fileUtils.createDirectory(dirpath);
+        if (!cc.native.fileUtils.isFileExist(dirpath)) {// 目录不存在，创建
+            cc.native.fileUtils.createDirectory(dirpath);
         }
         HttpUtils.downloadRemoteFile(remoteImgUrl, (data : any)=>{
             if (data) {
@@ -155,6 +155,6 @@ export class PlatformAndroid extends PlatformBase{
     //复制
     private copyToClipboard(text : string){
         let sigs = "(Ljava/lang/String;)V"
-        jsb.reflection.callStaticMethod('com/utils/AppUtil', 'copyToClipboard', sigs, text);
+        cc.native.reflection.callStaticMethod('com/utils/AppUtil', 'copyToClipboard', sigs, text);
     }
 }

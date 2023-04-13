@@ -6,7 +6,7 @@ export class LogConsole  implements LogDelegate{
 
     constructor(){
         this.m_funcs[LogLevel.INFO] = console.info;
-        this.m_funcs[LogLevel.DEBUG] = console.debug;
+        this.m_funcs[LogLevel.DEBUG] = console.log;
         this.m_funcs[LogLevel.WARN] = console.warn;
         this.m_funcs[LogLevel.ERROR] = console.error;
     }

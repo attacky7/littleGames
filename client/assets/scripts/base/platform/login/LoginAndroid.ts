@@ -39,7 +39,7 @@ export class LoginAndroid extends LoginBase{
         let packageData : any = LoginWayPackageData[loginWay];
         let packageName : string = packageData.package;
         let sigs = "(Ljava/lang/String;)I"
-        let value = jsb.reflection.callStaticMethod('com/utils/OpenappUtil', 'checkAppExist',sigs, packageName); 
+        let value = cc.native.reflection.callStaticMethod('com/utils/OpenappUtil', 'checkAppExist',sigs, packageName); 
         log.d("===checkAppExist======:", value)
         return value == 1;
     }
@@ -114,7 +114,7 @@ export class LoginAndroid extends LoginBase{
             state:"123",
         })
         let sigs = "(Ljava/lang/String;)V"
-        jsb.reflection.callStaticMethod('com/weChat/WeChatUtil', 'weChatLogin', sigs, stringify); 
+        cc.native.reflection.callStaticMethod('com/weChat/WeChatUtil', 'weChatLogin', sigs, stringify); 
     }
 
     //taptap的SDK登录
@@ -130,7 +130,7 @@ export class LoginAndroid extends LoginBase{
         })
         let stringify = JSON.stringify({})
         let sigs = "(Ljava/lang/String;)V"
-        jsb.reflection.callStaticMethod('channel/TapUtil', 'taptapLogin', sigs, stringify); 
+        cc.native.reflection.callStaticMethod('channel/TapUtil', 'taptapLogin', sigs, stringify); 
     }
 
     //momoyu的SDK登录
@@ -146,7 +146,7 @@ export class LoginAndroid extends LoginBase{
         })
         let stringify = JSON.stringify({})
         let sigs = "(Ljava/lang/String;)V"
-        jsb.reflection.callStaticMethod('channel/MomoyuUtil', 'momoyuLogin', sigs, stringify); 
+        cc.native.reflection.callStaticMethod('channel/MomoyuUtil', 'momoyuLogin', sigs, stringify); 
     }
 
     //googlePlay的SDK登录
@@ -162,7 +162,7 @@ export class LoginAndroid extends LoginBase{
         })
         let stringify = JSON.stringify({})
         let sigs = "(Ljava/lang/String;)V"
-        jsb.reflection.callStaticMethod('channel/GooglePlayUtil', 'googlePlayLogin', sigs, stringify); 
+        cc.native.reflection.callStaticMethod('channel/GooglePlayUtil', 'googlePlayLogin', sigs, stringify); 
     }
 
 }

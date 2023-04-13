@@ -24,7 +24,7 @@ export class TalkIOS  extends AnalyticsBase{
             userName : userName,
             profileType : ProfileType.ANONYMOUS,
         })
-        jsb.reflection.callStaticMethod("AnalyticsUtil", 'loginSuccess:', stringify); 
+        cc.native.reflection.callStaticMethod("AnalyticsUtil", 'loginSuccess:', stringify); 
     }
 
     public virtualReward(reason : string, amount : number){
@@ -32,7 +32,7 @@ export class TalkIOS  extends AnalyticsBase{
             amount : amount,  //虚拟币金额
             reason : reason,  //赠送虚拟币原因/类型
         })
-        jsb.reflection.callStaticMethod("AnalyticsUtil", 'virtualReward:', stringify); 
+        cc.native.reflection.callStaticMethod("AnalyticsUtil", 'virtualReward:', stringify); 
         this.customEvent('virtual_reward', {reason : reason+'', amount : amount + ''})
     }
     
@@ -41,7 +41,7 @@ export class TalkIOS  extends AnalyticsBase{
             amount : count,  //虚拟币金额
             item : reason,  //赠送虚拟币原因/类型
         })
-        jsb.reflection.callStaticMethod("AnalyticsUtil", 'virtualConsume:', stringify); 
+        cc.native.reflection.callStaticMethod("AnalyticsUtil", 'virtualConsume:', stringify); 
         this.customEvent('virtual_consume', {reason : reason+'', amount : count + ''})
     }
 
@@ -50,7 +50,7 @@ export class TalkIOS  extends AnalyticsBase{
             item : item,  //消耗的物品
             itemNumber : itemNumber,  //数量
         })
-        jsb.reflection.callStaticMethod("AnalyticsUtil", 'itemConsume:', stringify); 
+        cc.native.reflection.callStaticMethod("AnalyticsUtil", 'itemConsume:', stringify); 
         this.customEvent('item_consume', {reason : '物品id-'+item, amount : itemNumber + ''})
     }
 
@@ -58,7 +58,7 @@ export class TalkIOS  extends AnalyticsBase{
         let stringify = JSON.stringify({
             level : level,  //关卡描述
         })
-        jsb.reflection.callStaticMethod("AnalyticsUtil", 'levelsBegin:', stringify); 
+        cc.native.reflection.callStaticMethod("AnalyticsUtil", 'levelsBegin:', stringify); 
         this.customEvent('levels_begin', {level : 'ID-'+level})
     }
 
@@ -67,7 +67,7 @@ export class TalkIOS  extends AnalyticsBase{
         let stringify = JSON.stringify({
             level : level,  //关卡描述
         })
-        jsb.reflection.callStaticMethod("AnalyticsUtil", 'levelsCompleted:', stringify); 
+        cc.native.reflection.callStaticMethod("AnalyticsUtil", 'levelsCompleted:', stringify); 
         this.customEvent('levels_completed', {level : 'ID-'+level})
     }
 
@@ -76,7 +76,7 @@ export class TalkIOS  extends AnalyticsBase{
             level : level,  //关卡描述
             reason : reason,
         })
-        jsb.reflection.callStaticMethod("AnalyticsUtil", 'levelsFailed:', stringify); 
+        cc.native.reflection.callStaticMethod("AnalyticsUtil", 'levelsFailed:', stringify); 
         this.customEvent('levels_failed', {level : 'ID-'+level, reason : reason})
     }
 
@@ -88,7 +88,7 @@ export class TalkIOS  extends AnalyticsBase{
             }
         }
         let stringify = JSON.stringify(datas)
-        jsb.reflection.callStaticMethod("AnalyticsUtil", 'customEvent:', stringify); 
+        cc.native.reflection.callStaticMethod("AnalyticsUtil", 'customEvent:', stringify); 
     }
  
 }

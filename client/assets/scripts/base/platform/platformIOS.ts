@@ -46,7 +46,7 @@ export class PlatformIOS extends PlatformBase{
     //唯一码用于游客登录
     public getUniqueCode(doneCallback : DoneFunc){
         let stringify = JSON.stringify({})
-        let code = jsb.reflection.callStaticMethod('AppUtil', 'getUniqueCode:', stringify); 
+        let code = cc.native.reflection.callStaticMethod('AppUtil', 'getUniqueCode:', stringify); 
         let uniqueCode = code +  +'#'+ utils.timeus();
         doneCallback(uniqueCode)
     }

@@ -101,7 +101,7 @@ export class MMYAndroid extends ADBase{
         })
         
         let sigs = "(Ljava/lang/String;)V"
-        jsb.reflection.callStaticMethod(classVideoName, 'momoyuShowAd', sigs, stringify)
+        cc.native.reflection.callStaticMethod(classVideoName, 'momoyuShowAd', sigs, stringify)
     }
 
     public createInterstitial(finishCallback:ListenerFunc){

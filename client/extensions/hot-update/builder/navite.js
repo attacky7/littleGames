@@ -12,16 +12,16 @@ var inject_script = `
 (function () {
     if (typeof window.jsb === 'object') {
         try{
-            let storagePath = ((jsb.fileUtils ? jsb.fileUtils.getWritablePath() : '/') + 'updateContent') +'/';
+            let storagePath = ((cc.native.fileUtils ? cc.native.fileUtils.getWritablePath() : '/') + 'updateContent') +'/';
             console.log("update storagePath", storagePath)
             let localManifestPath = localStorage.getItem("HotUpdateLocalManifestFilePath");
             if(localManifestPath){
                 let cacheManifestPath = storagePath+"project.manifest";
                 console.log("localManifestPath", localManifestPath)
                 console.log("cacheManifestPath", cacheManifestPath)
-                if(jsb.fileUtils.isFileExist(localManifestPath) && jsb.fileUtils.isFileExist(cacheManifestPath)){
-                    let localContent = jsb.fileUtils.getStringFromFile(localManifestPath);
-                    let remoteContent = jsb.fileUtils.getStringFromFile(cacheManifestPath);
+                if(cc.native.fileUtils.isFileExist(localManifestPath) && cc.native.fileUtils.isFileExist(cacheManifestPath)){
+                    let localContent = cc.native.fileUtils.getStringFromFile(localManifestPath);
+                    let remoteContent = cc.native.fileUtils.getStringFromFile(cacheManifestPath);
                     let localJson = JSON.parse(localContent);
                     let remoteJson = JSON.parse(remoteContent);
         
@@ -48,8 +48,8 @@ var inject_script = `
                     }
         
                     if(versionCmp(localJson["version"], remoteJson["version"]) >= 0){
-                        jsb.fileUtils.removeDirectory(storagePath);
-                        jsb.fileUtils.createDirectory(storagePath);
+                        cc.native.fileUtils.removeDirectory(storagePath);
+                        cc.native.fileUtils.createDirectory(storagePath);
                         return;
                     }
                 }
@@ -58,29 +58,29 @@ var inject_script = `
             let hotUpdateSearchPaths = localStorage.getItem('HotUpdateSearchPaths');
             if (hotUpdateSearchPaths && localManifestPath) {
                 var paths = JSON.parse(hotUpdateSearchPaths);
-                jsb.fileUtils.setSearchPaths(paths);
+                cc.native.fileUtils.setSearchPaths(paths);
     
                 var fileList = [];
                 var tempPath = storagePath + '_temp/';
                 var baseOffset = tempPath.length;
                 
-                if (jsb.fileUtils.isDirectoryExist(tempPath) && !jsb.fileUtils.isFileExist(tempPath + 'project.manifest.temp')) {
-                    jsb.fileUtils.listFilesRecursively(tempPath, fileList);
+                if (cc.native.fileUtils.isDirectoryExist(tempPath) && !cc.native.fileUtils.isFileExist(tempPath + 'project.manifest.temp')) {
+                    cc.native.fileUtils.listFilesRecursively(tempPath, fileList);
                     fileList.forEach(srcPath => {
                         var relativePath = srcPath.substr(baseOffset);
                         var dstPath = storagePath + relativePath;
     
                         if (srcPath[srcPath.length] == '/') {
-                            jsb.fileUtils.createDirectory(dstPath)
+                            cc.native.fileUtils.createDirectory(dstPath)
                         }
                         else {
-                            if (jsb.fileUtils.isFileExist(dstPath)) {
-                                jsb.fileUtils.removeFile(dstPath)
+                            if (cc.native.fileUtils.isFileExist(dstPath)) {
+                                cc.native.fileUtils.removeFile(dstPath)
                             }
-                            jsb.fileUtils.renameFile(srcPath, dstPath);
+                            cc.native.fileUtils.renameFile(srcPath, dstPath);
                         }
                     })
-                    jsb.fileUtils.removeDirectory(tempPath);
+                    cc.native.fileUtils.removeDirectory(tempPath);
                 }
             }
         }catch( err ){

@@ -25,7 +25,7 @@ export class TalkAndroid  extends AnalyticsBase{
             userName : userName,
             profileType : ProfileType.ANONYMOUS,
         })
-        jsb.reflection.callStaticMethod("com/analytics/AnalyticsUtil", 'loginSuccess', sigs, stringify); 
+        cc.native.reflection.callStaticMethod("com/analytics/AnalyticsUtil", 'loginSuccess', sigs, stringify); 
     }
 
     public virtualReward(reason : string, amount : number){
@@ -34,7 +34,7 @@ export class TalkAndroid  extends AnalyticsBase{
             amount : amount,  //虚拟币金额
             reason : reason,  //赠送虚拟币原因/类型
         })
-        jsb.reflection.callStaticMethod("com/analytics/AnalyticsUtil", 'virtualReward', sigs, stringify);
+        cc.native.reflection.callStaticMethod("com/analytics/AnalyticsUtil", 'virtualReward', sigs, stringify);
         this.customEvent('virtual_reward', {reason : reason+'', amount : amount + ''})
     }
     
@@ -44,7 +44,7 @@ export class TalkAndroid  extends AnalyticsBase{
             amount : count,  //虚拟币金额
             item : reason,  //赠送虚拟币原因/类型
         })
-        jsb.reflection.callStaticMethod("com/analytics/AnalyticsUtil", 'virtualConsume', sigs, stringify); 
+        cc.native.reflection.callStaticMethod("com/analytics/AnalyticsUtil", 'virtualConsume', sigs, stringify); 
         this.customEvent('virtual_consume', {reason : reason+'', amount : count + ''})
     }
 
@@ -54,7 +54,7 @@ export class TalkAndroid  extends AnalyticsBase{
             item : item,  //消耗的物品
             itemNumber : itemNumber,  //数量
         })
-        jsb.reflection.callStaticMethod("com/analytics/AnalyticsUtil", 'itemConsume', sigs, stringify); 
+        cc.native.reflection.callStaticMethod("com/analytics/AnalyticsUtil", 'itemConsume', sigs, stringify); 
         this.customEvent('item_consume', {reason : '物品id-'+item, amount : itemNumber + ''})
     }
 
@@ -63,7 +63,7 @@ export class TalkAndroid  extends AnalyticsBase{
         let stringify = JSON.stringify({
             level : level,  //关卡描述
         })
-        jsb.reflection.callStaticMethod("com/analytics/AnalyticsUtil", 'levelsBegin', sigs, stringify); 
+        cc.native.reflection.callStaticMethod("com/analytics/AnalyticsUtil", 'levelsBegin', sigs, stringify); 
         this.customEvent('levels_begin', {level : 'ID-'+level})
     }
 
@@ -73,7 +73,7 @@ export class TalkAndroid  extends AnalyticsBase{
         let stringify = JSON.stringify({
             level : level,  //关卡描述
         })
-        jsb.reflection.callStaticMethod("com/analytics/AnalyticsUtil", 'levelsCompleted', sigs, stringify); 
+        cc.native.reflection.callStaticMethod("com/analytics/AnalyticsUtil", 'levelsCompleted', sigs, stringify); 
         this.customEvent('levels_completed', {level : 'ID-'+level})
     }
 
@@ -83,7 +83,7 @@ export class TalkAndroid  extends AnalyticsBase{
             level : level,  //关卡描述
             reason : reason,
         })
-        jsb.reflection.callStaticMethod("com/analytics/AnalyticsUtil", 'levelsFailed', sigs, stringify); 
+        cc.native.reflection.callStaticMethod("com/analytics/AnalyticsUtil", 'levelsFailed', sigs, stringify); 
         this.customEvent('levels_failed', {level : 'ID-'+level, reason : reason})
     }
 
@@ -96,7 +96,7 @@ export class TalkAndroid  extends AnalyticsBase{
             }
         }
         let stringify = JSON.stringify(datas)
-        jsb.reflection.callStaticMethod("com/analytics/AnalyticsUtil", 'customEvent', sigs, stringify); 
+        cc.native.reflection.callStaticMethod("com/analytics/AnalyticsUtil", 'customEvent', sigs, stringify); 
     }
  
 }

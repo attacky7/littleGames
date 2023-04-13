@@ -138,7 +138,7 @@ export class PlatformBase extends EventDispatcher{
     public openUrl( url : string){
         try{
             if(cc.sys.isNative){
-                jsb.openURL(url);
+                cc.sys.openURL(url);
             }else{
                 cc.sys.openURL(url);
             }
@@ -225,7 +225,7 @@ export class PlatformBase extends EventDispatcher{
     //判断文件是否存在
 	public isFileExist(fileName : string) {
         if(cc.sys.isNative){
-            return jsb.fileUtils.isFileExist(fileName);
+            return cc.native.fileUtils.isFileExist(fileName);
         }
         return false;
     }

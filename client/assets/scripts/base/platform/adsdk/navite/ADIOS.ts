@@ -26,14 +26,14 @@ export class ADIOS  extends ADBase{
         }
         let stringify = JSON.stringify(args)
         log.d("===ts==createBanner=====", stringify)
-        jsb.reflection.callStaticMethod(classCommon, 'createBannerAd:', stringify); 
+        cc.native.reflection.callStaticMethod(classCommon, 'createBannerAd:', stringify); 
     }
     
     public clearBanner(){
         let args = {
         }
         let stringify = JSON.stringify(args)
-        jsb.reflection.callStaticMethod(classCommon, 'clearBannerAd:', stringify); 
+        cc.native.reflection.callStaticMethod(classCommon, 'clearBannerAd:', stringify); 
     }
 
     public createVideo( videoType : ADVideoType, finishCallback:ListenerFunc){
@@ -99,7 +99,7 @@ export class ADIOS  extends ADBase{
         }
         let stringify = JSON.stringify(args)
         log.d("===ts==createVideo=====", stringify)
-        jsb.reflection.callStaticMethod(classCommon, 'createVideoAd:', stringify)
+        cc.native.reflection.callStaticMethod(classCommon, 'createVideoAd:', stringify)
     }
 
 
@@ -110,7 +110,7 @@ export class ADIOS  extends ADBase{
         }
         let stringify = JSON.stringify(args)
         log.d("===ts==createInterstitial=====", stringify)
-        jsb.reflection.callStaticMethod(classCommon, 'createInterstitialAd:', stringify);
+        cc.native.reflection.callStaticMethod(classCommon, 'createInterstitialAd:', stringify);
     }
 
 }

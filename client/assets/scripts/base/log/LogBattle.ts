@@ -11,9 +11,9 @@ export class LogBattle  implements LogDelegate{
 
     protected getLogFile(){
         let date = new Date();
-        let root = jsb.fileUtils.getWritablePath()+"/battlelog/";
-        if(!jsb.fileUtils.isDirectoryExist(root)){
-            jsb.fileUtils.createDirectory(root);
+        let root = cc.native.fileUtils.getWritablePath()+"/battlelog/";
+        if(!cc.native.fileUtils.isDirectoryExist(root)){
+            cc.native.fileUtils.createDirectory(root);
         }
         let logfile = root+this.m_uid+"_time_"+date.getTime().toLocaleString()+".log";
         return logfile;
@@ -32,8 +32,8 @@ export class LogBattle  implements LogDelegate{
             if(myjsb){
                 enable = true;
             }
-            if(jsb.fileUtils.isFileExist(this.m_file)){
-                jsb.fileUtils.removeFile(this.m_file);
+            if(cc.native.fileUtils.isFileExist(this.m_file)){
+                cc.native.fileUtils.removeFile(this.m_file);
             }
         }else{
             let date = new Date();

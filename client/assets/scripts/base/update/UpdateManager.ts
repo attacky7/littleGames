@@ -41,7 +41,7 @@ type SERVER_CONFIG = {
 @ccclass('UpdateManager')
 export class UpdateManager extends cc.Component {
     private m_storagePath = "";
-    private m_assetManager : jsb.AssetsManager = null!;
+    private m_assetManager : cc.native.AssetsManager = null!;
     @property(cc.JsonAsset)
     private m_manifestJsonUrl  : cc.JsonAsset = null!;
 
@@ -79,7 +79,7 @@ export class UpdateManager extends cc.Component {
             return;
         }
         
-        this.m_storagePath = ((jsb.fileUtils ? jsb.fileUtils.getWritablePath() : '/') + 'updateContent');
+        this.m_storagePath = ((cc.native.fileUtils ? cc.native.fileUtils.getWritablePath() : '/') + 'updateContent');
         log.d("storage path for remote asset : ", this.m_storagePath);
 
         // Setup your own version compare handler, versionA and B is versions in string
@@ -87,7 +87,7 @@ export class UpdateManager extends cc.Component {
         // if the return value equals 0, versionA equals to B,
         // if the return value smaller than 0, versionA is smaller than B.
         // 自定义版本检测接口
-        this.m_assetManager = new jsb.AssetsManager("", this.m_storagePath, ( versionA : string, versionB : string) : number =>{
+        this.m_assetManager = new cc.native.AssetsManager("", this.m_storagePath, ( versionA : string, versionB : string) : number =>{
             log.d("Js custom version compare : version A is :"+versionA + ", version B is "+ versionB);
             let vA = versionA.split(".");
             let vB = versionB.split(".");
@@ -255,13 +255,13 @@ export class UpdateManager extends cc.Component {
             return;
         }
 
-        if(this.m_assetManager.getState() === jsb.AssetsManager.State.UNINITED ){
+        if(this.m_assetManager.getState() === cc.native.AssetsManager.State.UNINITED ){
             this.m_assetManager.loadLocalManifest(this.m_manifestUrl);
         }
 
         //加载本地manifest 失败
         if(!this.m_assetManager.getLocalManifest() || !this.m_assetManager.getLocalManifest().isLoaded()){
-            donceCallback(false, jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST, "No local manifest file found, hot update skipped.");
+            donceCallback(false, cc.native.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST, "No local manifest file found, hot update skipped.");
             return;
         }
         
@@ -271,23 +271,23 @@ export class UpdateManager extends cc.Component {
             let needUpdate = false;
             let msg = "";
             switch(code){
-                case jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
+                case cc.native.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
                     {
                         msg = "No local manifest file found, hot update skipped."
                         break;
                     }
-                case jsb.EventAssetsManager.ERROR_DOWNLOAD_MANIFEST:
-                case jsb.EventAssetsManager.ERROR_PARSE_MANIFEST:
+                case cc.native.EventAssetsManager.ERROR_DOWNLOAD_MANIFEST:
+                case cc.native.EventAssetsManager.ERROR_PARSE_MANIFEST:
                     {
                         msg = "Fail to download manifest file, hot update skipped.";
                         break;
                     }
-                case jsb.EventAssetsManager.ALREADY_UP_TO_DATE:
+                case cc.native.EventAssetsManager.ALREADY_UP_TO_DATE:
                     {
                         msg = "Already up to date with the latest remote version.";
                         break;
                     }
-                case jsb.EventAssetsManager.NEW_VERSION_FOUND:
+                case cc.native.EventAssetsManager.NEW_VERSION_FOUND:
                     {
                         msg = 'New version found, please try to update. (' + Math.ceil(this.m_assetManager.getTotalBytes() / 1024) + 'kb)';
                         needUpdate = true;
@@ -324,13 +324,13 @@ export class UpdateManager extends cc.Component {
             let canRetry = false;
 
             switch(code){
-                case jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
+                case cc.native.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
                 {
                     result = 'No local manifest file found, hot update skipped.';
                     failed = true;
                     break;
                 }
-            case jsb.EventAssetsManager.UPDATE_PROGRESSION:
+            case cc.native.EventAssetsManager.UPDATE_PROGRESSION:
                 {
                     let bytesPercent =  event.getPercent();
                     let filePercent = event.getPercentByFile();
@@ -342,38 +342,38 @@ export class UpdateManager extends cc.Component {
                     processCallback && processCallback(bytesPercent, finsihBytes, totoalBytes);
                     break;
                 }
-            case jsb.EventAssetsManager.ERROR_DOWNLOAD_MANIFEST:
-            case jsb.EventAssetsManager.ERROR_PARSE_MANIFEST:
+            case cc.native.EventAssetsManager.ERROR_DOWNLOAD_MANIFEST:
+            case cc.native.EventAssetsManager.ERROR_PARSE_MANIFEST:
                 {
                     result = 'Fail to download manifest file, hot update skipped.';
                     failed = true;
                     break;
                 }
-            case jsb.EventAssetsManager.ALREADY_UP_TO_DATE:
+            case cc.native.EventAssetsManager.ALREADY_UP_TO_DATE:
                 {
                     result = 'Already up to date with the latest remote version.';
                     failed = true;
                     break;
                 }
-            case jsb.EventAssetsManager.UPDATE_FINISHED:
+            case cc.native.EventAssetsManager.UPDATE_FINISHED:
                 {
                     result = 'Update finished. ' + event.getMessage();
                     done = true;
                     break;
                 }
-            case jsb.EventAssetsManager.UPDATE_FAILED:
+            case cc.native.EventAssetsManager.UPDATE_FAILED:
                 {
                     result = 'Update failed. ' + event.getMessage();
                     failed = true;
                     canRetry = true;
                     break;
                 }
-            case jsb.EventAssetsManager.ERROR_UPDATING:
+            case cc.native.EventAssetsManager.ERROR_UPDATING:
                 {
                     result = 'Asset update error: ' + event.getAssetId() + ', ' + event.getMessage();
                 }
                 break;
-            case jsb.EventAssetsManager.ERROR_DECOMPRESS:
+            case cc.native.EventAssetsManager.ERROR_DECOMPRESS:
                 {
                     result = event.getMessage();
                 }
@@ -403,7 +403,7 @@ export class UpdateManager extends cc.Component {
             if(done){
                 this.m_updating = false;
                 this.m_assetManager.setEventCallback(null!);
-                let searchPaths = jsb.fileUtils.getSearchPaths();
+                let searchPaths = cc.native.fileUtils.getSearchPaths();
                 let newPaths = this.m_assetManager.getLocalManifest().getSearchPaths();
                 log.d(JSON.stringify(newPaths));
                 Array.prototype.unshift.apply(searchPaths, newPaths);
@@ -412,12 +412,12 @@ export class UpdateManager extends cc.Component {
                 if( null == localStorage.getItem("HotUpdateLocalManifestFilePath")){
                     localStorage.setItem("HotUpdateLocalManifestFilePath", this.m_manifestUrl);
                 }
-                jsb.fileUtils.setSearchPaths(searchPaths);
+                cc.native.fileUtils.setSearchPaths(searchPaths);
                 donceCallback(true, code, result);
             }
         })
 
-        if(this.m_assetManager.getState() === jsb.AssetsManager.State.UNINITED){
+        if(this.m_assetManager.getState() === cc.native.AssetsManager.State.UNINITED){
             this.m_assetManager.loadLocalManifest(this.m_manifestUrl);
         }
         
