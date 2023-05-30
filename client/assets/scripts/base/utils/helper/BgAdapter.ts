@@ -1,4 +1,4 @@
-// create by xzben
+// create by zsl
 import * as cc from 'cc';
 const { ccclass, property } = cc._decorator;
 

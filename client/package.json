@@ -1,6 +1,6 @@
 {
   "creator": {
-    "version": "3.5.2"
+    "version": "3.7.2"
   },
   "dependencies": {
     "babylonjs": "^5.7.0"

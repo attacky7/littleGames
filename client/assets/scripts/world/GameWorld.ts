@@ -210,7 +210,7 @@ export class GameWorld extends cc.Component {
         this.m_loadingBar.progress = 0;
         this.m_lblProcess.string = `加载bundle资源中 0%`
 
-        ResLoader.loadBundleArray(["common"], ( err : Error | null, bundles : Map<string, BundleAsset> | null )=>{
+        ResLoader.loadBundleArray(["common", "hall", 'test'], ( err : Error | null, bundles : Map<string, BundleAsset> | null )=>{
             if(bundles){
                 bundles.forEach(( bundle )=>{
                     bundle.addRef(); //全局包不需要释放
